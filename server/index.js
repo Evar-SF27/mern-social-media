@@ -9,12 +9,17 @@ import morgan from 'morgan'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import multer from 'multer'
+import connectDB from './config/dbConfig'
 
 // CONFIGURATIONS
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+const PORT = process.env.PORT || 6001
 dotenv.config()
 const app = express()
+
+// Calling the Mongoose Config function
+connectDB()
 
 // Middlewares
 app.use(express.json())
@@ -45,3 +50,8 @@ const fileFilter = (req, file, cb) => {
 }
 
 const upload = multer({ storage: storage, fileFilter: fileFilter })
+
+// Mongoose Setup
+mongoose.connection.once("open", () => {
+    app.listen(PORT, () => console.log(`Connected to PORT ${PORT}`))
+} )

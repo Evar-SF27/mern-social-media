@@ -8,3 +8,20 @@ $ snyk test
 Use this command to open a wizard that walks you through the process of applying updates or patches to fix the vulnerabilities that were found:
 
 $ snyk wizard
+
+1. How to use multer to upload files and images to google cloud Storage
+
+const multer = require('multer')
+const multerGoogleStorage = require('multer-google-storage')
+
+const storage = multerGoogleStorage.storageEngine({
+    autoRetry: true,
+    bucket: '<storage bucket name>',
+    projectId: '<projectId>',
+    keyFilename: '<pathtokeyfile>',
+    filename: (req, file, cb) => {
+        cb(null, `/projectimages/${Date.now()}_${file.originalname}`)
+    }
+})
+
+const uploadFile = multer({ storage: storage })
