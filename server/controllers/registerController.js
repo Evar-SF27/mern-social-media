@@ -7,7 +7,7 @@ const handleRegister = async (req, res) => {
     try {
         // Receiving credentials from the request
         const { firstName, lastName, email, password, picturePath, friends, location, occupation, viewedProfile, impressions } = req.body
-        if (!firstName || !lastName || !email || !password ) return res.status(401).json({ "message": "Incomplete credentials" })
+        if (!firstName || !lastName || !email || !password ) return res.status(400).json({ "message": "Incomplete credentials" })
 
         // Checking for duplicate user
         const duplicateUser = await mongoose.findOne({ email }).exec()

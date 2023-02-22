@@ -10,8 +10,8 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import multer from 'multer'
 import connectDB from './config/dbConfig'
-import registerRouter from './routes/register'
 import authRouter from './routes/auth'
+import handleRegister from './controllers/registerController'
 
 // CONFIGURATIONS
 const __filename = fileURLToPath(import.meta.url)
@@ -54,7 +54,10 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ storage: storage, fileFilter: fileFilter })
 
 // Routes with files
-app.use('/auth/register', upload.single("picture"), authRouter)
+app.post('/auth/register', upload.single("picture"), handleRegister)
+
+// Routes
+app.use('/auth', authRouter)
 
 // Mongoose Setup Once
 mongoose.connection.once("open", () => {
