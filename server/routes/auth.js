@@ -1,8 +1,8 @@
-import express from 'express'
-import handleLogin from '../controllers/authController'
+const express = require('express')
+const handleLogin = require('../controllers/authController')
 
-const authRouter = express.Router()
+const router = express.Router()
 
 router.post("/login", handleLogin)
 
-export default authRouter
+module.exports = router

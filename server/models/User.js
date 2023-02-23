@@ -1,5 +1,5 @@
-import mongoose from 'mongoose'
-import { Schema } from 'mongoose'
+const mongoose = require('mongoose')
+const { Schema } = require('mongoose')
 
 const userSchema = new Schema(
     {
@@ -37,7 +37,8 @@ const userSchema = new Schema(
         location: String,
         occupation: String,
         viewedProfile: Number,
-        impressions: Number
+        impressions: Number,
+        refreshToken: String,
     },
     {
         timestamps: true
@@ -46,4 +47,4 @@ const userSchema = new Schema(
 
 const User = mongoose.model('User', userSchema)
 
-export default User
+module.exports = User

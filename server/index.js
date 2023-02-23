@@ -1,27 +1,27 @@
-import express from 'express'
-import mongoose from 'mongoose'
-import bodyParser from 'body-parser'
-import cors from 'cors'
-import dotenv from 'dotenv'
-import multer from 'multer'
-import helmet from 'hemlet'
-import morgan from 'morgan'
-import path from 'path'
-import { fileURLToPath } from 'url'
-import multer from 'multer'
-import connectDB from './config/dbConfig'
-import authRouter from './routes/auth'
-import handleRegister from './controllers/registerController'
+const express = require('express')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const dotenv = require('dotenv')
+const multer = require('multer')
+const helmet = require('helmet')
+const morgan = require('morgan')
+const path = require('path')
+const { fileURLToPath } = require('url')
+const handleRegister = require('./controllers/registerController')
 
 // CONFIGURATIONS
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = path.dirname(__filename)
 const PORT = process.env.PORT || 6001
 dotenv.config()
 const app = express()
 
-// Calling the Mongoose Config function
-connectDB()
+// Connecting the server to MongoDB
+mongoose.connect(process.env.MONGO_URI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+})
 
 // Middlewares
 app.use(express.json())
@@ -57,7 +57,8 @@ const upload = multer({ storage: storage, fileFilter: fileFilter })
 app.post('/auth/register', upload.single("picture"), handleRegister)
 
 // Routes
-app.use('/auth', authRouter)
+app.use('/auth', require('./routes/auth'))
+// app.use('/users', require('./routes/users'))
 
 // Mongoose Setup Once
 mongoose.connection.once("open", () => {
