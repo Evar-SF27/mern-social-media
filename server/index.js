@@ -9,6 +9,7 @@ const morgan = require('morgan')
 const path = require('path')
 const { fileURLToPath } = require('url')
 const handleRegister = require('./controllers/registerController')
+const verifyToken = require('./middlewares/verifyJWT')
 
 // CONFIGURATIONS
 // const __filename = fileURLToPath(import.meta.url)
@@ -58,6 +59,8 @@ app.post('/auth/register', upload.single("picture"), handleRegister)
 
 // Routes
 app.use('/auth', require('./routes/auth'))
+app.use(verifyToken)
+app.use('/users', require('./routes/users'))
 // app.use('/users', require('./routes/users'))
 
 // Mongoose Setup Once
