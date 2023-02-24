@@ -9,6 +9,7 @@ const morgan = require('morgan')
 const path = require('path')
 const { fileURLToPath } = require('url')
 const handleRegister = require('./controllers/registerController')
+const { createPost } = require('./controllers/postController')
 const verifyToken = require('./middlewares/verifyJWT')
 
 // CONFIGURATIONS
@@ -56,11 +57,13 @@ const upload = multer({ storage: storage, fileFilter: fileFilter })
 
 // Routes with files
 app.post('/auth/register', upload.single("picture"), handleRegister)
+app.post('/posts', verifyToken, upload.single("picture"), createPost)
 
 // Routes
 app.use('/auth', require('./routes/auth'))
 app.use(verifyToken)
 app.use('/users', require('./routes/users'))
+app.use('/posts', require('./routes/posts'))
 // app.use('/users', require('./routes/users'))
 
 // Mongoose Setup Once
