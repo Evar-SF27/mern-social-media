@@ -68,5 +68,8 @@ app.use('/posts', require('./routes/posts'))
 
 // Mongoose Setup Once
 mongoose.connection.once("open", () => {
+    // User.insertMany(users)
+    // Post.insertMany(posts)
     app.listen(PORT, () => console.log(`Connected to PORT ${PORT}`))
 } )
+
