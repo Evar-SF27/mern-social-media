@@ -34,7 +34,7 @@ const initialValuesRegister = {
   picture: ""
 }
 
-const intialValuesLogin = {
+const initialValuesLogin = {
   email: "",
   password: ""
 }
@@ -56,7 +56,7 @@ const Form = () => {
     formData.append("picturePath", values.picture.name)
 
     const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
+      "http://localhost:6001/auth/register",
       {
         method: "POST",
         body: formData,
@@ -71,11 +71,12 @@ const Form = () => {
   }
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
+    const loggedInResponse = await fetch("http://localhost:6001/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     })
+
     const loggedIn = await loggedInResponse.json();
     onSubmitProps.resetForm();
     if (loggedIn) {
@@ -90,6 +91,7 @@ const Form = () => {
   }
 
   const handleFormSubmit = async (values, onSubmitProps) => {
+    console.log("Handle Form Submit")
     if (isLogin) await login(values, onSubmitProps)
     if (isRegister) await register(values, onSubmitProps)
   }
@@ -97,7 +99,7 @@ const Form = () => {
   return (
     <Formik
       onSubmit={handleFormSubmit}
-      initialValues={isLogin ? intialValuesLogin : initialValuesRegister}
+      initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
       validationSchema={isLogin ? loginSchema : registerSchema}
     >
       {({
@@ -118,6 +120,7 @@ const Form = () => {
                   label="First Name"
                   onBlur={handleBlur}
                   onChange={handleChange}
+                  value={values.firstName}
                   name="firstName"
                   error={Boolean(touched.firstName) && Boolean(errors.firstName)}
                   helperText={touched.firstName && errors.firstName}
@@ -127,20 +130,11 @@ const Form = () => {
                   label="Last Name"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  name="lasstName"
+                  name="lastName"
+                  value={values.lastName}
                   error={Boolean(touched.lastName) && Boolean(errors.lastName)}
                   helperText={touched.lastName && errors.lastName}
                   sx={{ gridColumn: "span 2" }}
-                />
-                <TextField
-                  label="Email"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.email}
-                  name="email"
-                  error={Boolean(touched.email) && Boolean(errors.email)}
-                  helperText={touched.email && errors.email}
-                  sx={{ gridColumn: "span 4" }}
                 />
                 <TextField 
                   label="Location"
@@ -198,6 +192,16 @@ const Form = () => {
               </>
             )}
             <TextField
+              label="Email"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.email}
+              name="email"
+              error={Boolean(touched.email) && Boolean(errors.email)}
+              helperText={touched.email && errors.email}
+              sx={{ gridColumn: "span 4" }}
+            />
+            <TextField
               label="Password"
               type="password"
               onBlur={handleBlur}
@@ -232,26 +236,25 @@ const Form = () => {
               {isLogin
                 ? "Don't have an account? "
                 : "Already have an account? "}
-                <Typography
-                  onClick={() => {
-                    setPageType(isLogin ? "register" : "login");
-                    resetForm();
-                  }}
-                  sx={{
-                    textDecoration: "underline",
-                    color: palette.primary.main,
-                    "&:hover": {
-                      cursor: "pointer",
-                      color: palette.primary.light,
-                    },
-                  }}
-                >
-                  {isLogin
-                    ? "Sign Up here."
-                    : "Login here."}
-                </Typography>
             </Typography>
-            
+            <Typography
+              onClick={() => {
+                setPageType(isLogin ? "register" : "login");
+                resetForm();
+              }}
+              sx={{
+                textDecoration: "underline",
+                color: palette.primary.main,
+                "&:hover": {
+                  cursor: "pointer",
+                  color: palette.primary.light,
+                },
+              }}
+            >
+              {isLogin
+                ? "Sign Up here."
+                : "Login here."}
+            </Typography>
           </Box>
         </form>
       )}
