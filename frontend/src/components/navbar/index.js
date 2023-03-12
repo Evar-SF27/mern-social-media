@@ -38,7 +38,7 @@ const NavBar = () => {
               }
             }}
           >
-            Social Platform
+            MERN Social
           </Typography>
           {isNonMobileScreens && (
             <FlexBetween background={neutralLight} borderRadius="9px" gap="3rem" padding="0.1rem 1.5rem">
@@ -105,7 +105,7 @@ const NavBar = () => {
           height="100%"
           zIndex="10"
           maxWidth="500px"
-          minWidth="300px"
+          minWidth="200px"
           backgroundColor={background}
         >
           {/* CLOSE ICON */}
