@@ -8,7 +8,7 @@ import AdvertWidget from 'components/widgets/advertWidget'
 import FriendListWidget from 'components/widgets/friendListWidget'
 
 const HomePage = () => {
-  const isNonMobileScreens = useMediaQuery("(min-width:1000px)")
+  const isNonMobileScreens = useMediaQuery("(min-width: 900px)")
   const { _id, picturePath } = useSelector((state) => state.user)
   console.log("Pic", picturePath)
 
@@ -17,7 +17,7 @@ const HomePage = () => {
       <NavBar />
       <Box
         width="100%"
-        padding="2rem 6%"
+        padding={isNonMobileScreens ? "2rem 3%" : "2rem 10%"}
         display={isNonMobileScreens ? "flex" : "block"}
         gap="0.5rem"
         justifyContent="space-between"
