@@ -3,7 +3,7 @@ import Form from './form'
 
 const LoginPage = () => {
   const theme = useTheme()
-  const isNonMobileScreens = useMediaQuery("(min-width: 1000px)")
+  const isNonMobileScreens = useMediaQuery("(min-width: 800px)")
     return (
       <Box>
         <Box
@@ -17,13 +17,13 @@ const LoginPage = () => {
           </Typography>
         </Box>
         <Box
-          width={isNonMobileScreens ? "50%" : "90%"}
+          width={isNonMobileScreens ? "60%" : "80%"}
           p="2rem"
           m="2rem auto"
           borderRadius="1.5rem"
           backgroundColor={theme.palette.background.alt}
         >
-            <Typography fontWeight="500" variant="h5" textAlign="center" sx={{ mb: "1.5rem" }}>
+            <Typography fontWeight="500" variant="h3" textAlign="center" sx={{ mb: "4rem" }}>
               Welcome to the MERN Social Media
             </Typography>
             <Form />

@@ -10,18 +10,18 @@ import Dropzone from 'react-dropzone'
 import FlexBetween from 'components/flexBetween'
 
 const registerSchema = yup.object().shape({
-  firstName: yup.string().required("required"),
-  lastName: yup.string().required("required"),
-  email: yup.string().email("Invalid Email").required("required"),
-  password: yup.string().required("required"),
-  location: yup.string().required("required"),
-  occupation: yup.string().required("required"),
-  picture: yup.string().required("required")
+  firstName: yup.string().required("First Name Required"),
+  lastName: yup.string().required("Last Name Required"),
+  email: yup.string().email("Invalid Email").required("Email Required"),
+  password: yup.string().required("Password Required"),
+  location: yup.string().required("Location Required"),
+  occupation: yup.string().required("Occupation Required"),
+  picture: yup.string().required("Picture Required")
 })
 
 const loginSchema = yup.object().shape({
-  email: yup.string().email("Invalid Email").required("required"),
-  password: yup.string().required("required")
+  email: yup.string().email("Invalid Email").required("Email Required"),
+  password: yup.string().required("Password Required")
 })
 
 const initialValuesRegister = {
@@ -132,6 +132,16 @@ const Form = () => {
                   helperText={touched.lastName && errors.lastName}
                   sx={{ gridColumn: "span 2" }}
                 />
+                <TextField
+                  label="Email"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.email}
+                  name="email"
+                  error={Boolean(touched.email) && Boolean(errors.email)}
+                  helperText={touched.email && errors.email}
+                  sx={{ gridColumn: "span 4" }}
+                />
                 <TextField 
                   label="Location"
                   onBlur={handleBlur}
@@ -187,17 +197,6 @@ const Form = () => {
                 </Box>
               </>
             )}
-
-            <TextField
-              label="Email"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              value={values.email}
-              name="email"
-              error={Boolean(touched.email) && Boolean(errors.email)}
-              helperText={touched.email && errors.email}
-              sx={{ gridColumn: "span 4" }}
-            />
             <TextField
               label="Password"
               type="password"
@@ -216,7 +215,8 @@ const Form = () => {
               type="submit"
               sx={{
                 m: "2rem 0",
-                p: "1rem",
+                p: "0.75rem",
+                fontSize: "18px",
                 backgroundColor: palette.primary.main,
                 color: palette.background.alt,
                 "&:hover": { color: palette.primary.main },
@@ -225,23 +225,33 @@ const Form = () => {
               {isLogin ? "LOGIN" : "REGISTER"}
             </Button>
             <Typography
-              onClick={() => {
-                setPageType(isLogin ? "register" : "login");
-                resetForm();
-              }}
               sx={{
-                textDecoration: "underline",
                 color: palette.primary.main,
-                "&:hover": {
-                  cursor: "pointer",
-                  color: palette.primary.light,
-                },
               }}
             >
               {isLogin
-                ? "Don't have an account? Sign Up here."
-                : "Already have an account? Login here."}
+                ? "Don't have an account? "
+                : "Already have an account? "}
+                <Typography
+                  onClick={() => {
+                    setPageType(isLogin ? "register" : "login");
+                    resetForm();
+                  }}
+                  sx={{
+                    textDecoration: "underline",
+                    color: palette.primary.main,
+                    "&:hover": {
+                      cursor: "pointer",
+                      color: palette.primary.light,
+                    },
+                  }}
+                >
+                  {isLogin
+                    ? "Sign Up here."
+                    : "Login here."}
+                </Typography>
             </Typography>
+            
           </Box>
         </form>
       )}
