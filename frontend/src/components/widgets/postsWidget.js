@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setPosts } from "state"
-import PostWidget from "../postWidget"
+import PostWidget from "../widgets/postWidget"
 
 const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch()

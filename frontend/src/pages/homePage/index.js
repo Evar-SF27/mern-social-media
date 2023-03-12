@@ -10,6 +10,7 @@ import FriendListWidget from 'components/widgets/friendListWidget'
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)")
   const { _id, picturePath } = useSelector((state) => state.user)
+  console.log("Pic", picturePath)
 
   return (
     <Box>

@@ -61,7 +61,7 @@ app.post('/posts', verifyToken, upload.single("picture"), createPost)
 
 // Routes
 app.use('/auth', require('./routes/auth'))
-app.use(verifyToken)
+// app.use(verifyToken)
 app.use('/users', require('./routes/users'))
 app.use('/posts', require('./routes/posts'))
 // app.use('/users', require('./routes/users'))

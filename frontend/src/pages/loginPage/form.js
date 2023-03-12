@@ -77,12 +77,12 @@ const Form = () => {
       body: JSON.stringify(values),
     })
 
-    const loggedIn = await loggedInResponse.json();
-    onSubmitProps.resetForm();
+    const loggedIn = await loggedInResponse.json()
+    onSubmitProps.resetForm()
     if (loggedIn) {
       dispatch(
         setLogin({
-          user: loggedIn.user,
+          user: loggedIn.currentUser,
           token: loggedIn.token,
         })
       )
